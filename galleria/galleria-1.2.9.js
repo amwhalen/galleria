@@ -5504,6 +5504,9 @@ Galleria.ready.callbacks = [];
 
 Galleria.raise = function( msg, fatal ) {
 
+    // disable all visible galleria error messages - amw
+    return;
+
     var type = fatal ? 'Fatal error' : 'Error',
 
         self = this,
