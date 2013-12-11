@@ -7,7 +7,7 @@ class AMWGalleria {
 
 	protected $url;
 	protected $theme;
-	protected $version = '1.0.0';
+	protected $version = '1.0.1';
 	protected $galleriaVersion = '1.2.9';
 	protected $optionsName = 'amw_galleria_theme';
 	protected $defaultTheme = 'amw-classic-light'; // TODO: add option to switch theme
