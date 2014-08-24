@@ -9,8 +9,10 @@ class AMWGalleria {
 	protected $theme;
 	protected $version = '1.0.1';
 	protected $galleriaVersion = '1.2.9';
-	protected $optionsName = 'amw_galleria_theme';
-	protected $defaultTheme = 'amw-classic-light'; // TODO: add option to switch theme
+	protected $optTheme = 'amw_galleria_theme';
+	protected $optShowTitle = 'amw_show_title';
+	protected $optShowDesc = 'amw_show_desc';
+	protected $defaultTheme = 'amw-classic-light';
 
 	/**
 	 * Constructor
@@ -19,7 +21,9 @@ class AMWGalleria {
 	 */
 	public function __construct($pluginUrl) {
 		$this->url   = $pluginUrl;
-		$this->theme = get_option($this->optionsName, $this->defaultTheme);
+		$this->theme = get_option($this->optTheme, $this->defaultTheme);
+		$this->showTitle = get_option($this->optShowTitle, 1);
+		$this->showDesc = get_option($this->optShowDesc, 1);
 		$this->initialize();
 	}
 
@@ -182,9 +186,9 @@ class AMWGalleria {
 				'image'       => $big[0],
 				'big'         => $big[0],
 				'thumb'       => $thumb[0],
-				'title'       => $attachment->post_title,
+				'title'       => ($this->showTitle?$attachment->post_title:''),
 				//'link'        => $attachment->guid,
-				'description' => wptexturize($attachment->post_excerpt),
+				'description' => ($this->showDesc?wptexturize($attachment->post_excerpt):''),
 			);
 			$images[] = $image;
 		}
@@ -237,14 +241,22 @@ class AMWGalleria {
 			wp_die(__('You do not have sufficient permissions to access this page.'));
 		}
 
-		if (isset($_POST[$this->optionsName])) {
-			update_option($this->optionsName, $_POST[$this->optionsName]);
+		// Check if an update was POST:ed
+		if (isset($_POST[$this->optTheme])) {
+			// Update all settings
+			update_option($this->optTheme, $_POST[$this->optTheme]);
+			update_option($this->optShowTitle, $_POST[$this->optShowTitle]);
+			update_option($this->optShowDesc, $_POST[$this->optShowDesc]);
+
+			// Refresh object config with new values
+			$this->theme = get_option($this->optTheme, $this->defaultTheme);
+			$this->showTitle = get_option($this->optShowTitle, 1);
+			$this->showDesc = get_option($this->optShowDesc, 1);
+
+			// Notify user
 			echo '<div id="message" class="updated fade"><p><strong>Options saved.</strong></p></div>';
 		}
 
-		$theme = get_option($this->optionsName, $this->defaultTheme);
-
-		// get the current option value
 
 		$availableThemes = array(
 			'amw-classic-light' => 'Classic Light (with fullscreen button)',
@@ -263,12 +275,28 @@ class AMWGalleria {
 								<label for="amw-theme-select">Theme</label>
 							</th>
 							<td>
-								<select id="amw-theme-select" name="<?php echo $this->optionsName; ?>">
+								<select id="amw-theme-select" name="<?php echo $this->optTheme; ?>">
 									<?php foreach ($availableThemes as $k=>$v): ?>
-									<option value="<?php echo $k; ?>"<?php if($theme==$k){ echo ' selected="selected"'; } ?>><?php echo $v; ?></option>
+									<option value="<?php echo $k; ?>"<?php if($this->theme==$k){ echo ' selected="selected"'; } ?>><?php echo $v; ?></option>
 									<?php endforeach; ?>
 								</select>
 							</td>
+						<tr valign="top">
+							<th scope"row">
+								<label for="amw-show-title">Display title</label>
+							</th>
+							<td>
+								<input type="checkbox" name="<?php echo $this->optShowTitle; ?>" id='amw-show-title' value="1" <?= checked( $this->showTitle, 1, false );?> />
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope"row">
+								<label for="amw-show-desc">Display description</label>
+							</th>
+							<td>
+								<input type="checkbox"  name="<?php echo $this->optShowDesc; ?>" id='amw-show-desc' value="1" <?= checked( $this->showDesc, 1, false );?> />
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<p class="submit"><input type="submit" value="Save Changes" class="button button-primary"></p>
