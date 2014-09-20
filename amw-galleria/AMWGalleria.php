@@ -8,7 +8,7 @@ class AMWGalleria {
 	protected $url;
 	protected $theme;
 	protected $version = '1.0.1';
-	protected $galleriaVersion = '1.2.9';
+	protected $galleriaVersion = '1.4.2';
 	protected $optTheme = 'amw_galleria_theme';
 	protected $optShowTitle = 'amw_show_title';
 	protected $optShowDesc = 'amw_show_desc';
