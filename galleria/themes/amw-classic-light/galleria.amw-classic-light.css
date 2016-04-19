@@ -104,8 +104,8 @@
     color: #bbb;
 }
 .galleria-info-close {
-    width: 9px;
-    height: 9px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     top: 10px;
     right: 20px;
@@ -244,8 +244,8 @@
 
 .galleria-amw-fullscreen {
     z-index: 2;
-    width: 13px;
-    height: 13px;
+    width: 23px;
+    height: 23px;
     padding: 5px;
     position: absolute;
     right: 10px;

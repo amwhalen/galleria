@@ -2,19 +2,20 @@
 Contributors: anukit
 Tags: galleria, gallery, slideshow, photos, images, swipe, mobile
 Requires at least: 3.0
-Tested up to: 3.7.1
+Tested up to: 4.5
 Stable tag: trunk
 License: The MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Displays a beautiful image gallery in pages or posts. Just insert the [gallery] shortcode into your page or post, and any attached images will appear.
+Displays a beautiful image gallery with a fullscreen option in pages or posts. Just insert the [gallery] shortcode into your page or post, and any attached images will appear.
 
 == Description ==
 
-Displays a beautiful image gallery in pages or posts.
+Displays a beautiful image gallery with a fullscreen option in pages or posts.
 Just insert the `[gallery]` shortcode into your page or post, and any attached images will appear in the gallery.
 It uses the awesome Galleria JavaScript image gallery framework, and it's easy to customize the display if you have JavaScript and CSS skills.
 It's mobile- and touch-ready so you can easily swipe through your photos on supported devices.
+Two visual options to choose from: light and dark.
 
 This plugin relies on the built-in gallery functionality of WordPress.
 Any images that are uploaded to (AKA attached) to a post or page will be pulled into this gallery.
@@ -41,6 +42,12 @@ Here's an example of a shortcode with specified image IDs:
 3. The Gallery editor built into WordPress 3.5.
 
 == Changelog ==
+
+= 1.0.3 =
+* CSS fixes and WordPress 4.5 compatibility.
+
+= 1.0.2 =
+* Compatible with WordPress 4.4.2.
 
 = 1.0.0 =
 * Version 1.0!
